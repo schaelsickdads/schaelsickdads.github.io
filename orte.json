@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "name": "Café Wirbelwind",
+    "art": "Kindercafé",
+    "stadtteil": "Refrath",
+    "text": "Eintritt: 7,5 € pro Kind",
+    "karte": "https://maps.app.goo.gl/u6R9YtrTAG3jgwkV9?g_st=ac",
+    "lat": 50.963924,
+    "lon": 7.113917
+  }
+]
