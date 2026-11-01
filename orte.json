@@ -7,5 +7,14 @@
     "karte": "https://maps.app.goo.gl/u6R9YtrTAG3jgwkV9?g_st=ac",
     "lat": 50.963924,
     "lon": 7.113917
+  },
+  {
+    "name": "Gut Leidenhausen",
+    "art": "Spielplatz",
+    "stadtteil": "Porz",
+    "text": "Super für einen Dad Walk inkl. Café",
+    "karte": "https://maps.app.goo.gl/YVopNAtBPUj1sTm58?g_st=ac",
+    "lat": 50.896719,
+    "lon": 7.096891
   }
 ]
