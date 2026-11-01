@@ -36,7 +36,7 @@
     font: 17px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   }
-  .wrap { max-width: 560px; margin: 0 auto; padding: 22px 26px 40px 18px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 22px 26px calc(112px + env(safe-area-inset-bottom, 0px)) 18px; }
   .top {
     display: flex; justify-content: space-between; gap: 12px;
     font: 12px var(--mono); letter-spacing: .04em; color: rgba(245,235,215,.7);
@@ -124,6 +124,35 @@
   dialog#nameDlg input { width: 100%; font: 17px system-ui, sans-serif; color: var(--ink); background: var(--cream);
     border: 3px solid var(--ink); border-radius: 12px; padding: 11px 12px; }
   dialog#nameDlg .btns { margin-top: 14px; }
+  dialog#shareDlg { border: 3px solid var(--cream); border-radius: 18px; background: var(--navy); color: var(--cream);
+    padding: 16px; width: min(94vw, 440px); max-height: 94vh; overflow: auto; box-shadow: 8px 9px 0 var(--ink); }
+  dialog#shareDlg::backdrop { background: rgba(11,30,42,.8); }
+  dialog#shareDlg h3 { margin: 0 0 10px; font: 900 22px/1.15 var(--serif); }
+  dialog#shareDlg .vorschaubild { display: block; width: auto; max-width: 100%; max-height: 52vh; margin: 0 auto 12px; border: 3px solid var(--ink); border-radius: 12px; background: var(--ink); }
+  dialog#shareDlg .zeile2 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  dialog#shareDlg .btn { width: 100%; min-height: 46px; display: flex; align-items: center; justify-content: center; text-align: center;
+    font: 700 15px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 8px 10px; border-width: 2px; border-radius: 12px; margin: 0;
+    background: transparent; color: var(--cream); border-color: var(--cream); text-decoration: none; }
+  dialog#shareDlg .btn.ja { background: var(--orange); color: var(--ink); border-color: var(--ink); }
+  dialog#shareDlg .hinweis { margin: 10px 0 0; font-size: 13px; line-height: 1.4; color: rgba(245,235,215,.8); }
+  .neu { margin-top: 0; }
+  .neu h2:first-child { margin-top: 26px; }
+  .neu .nbox { border: 2px solid rgba(245,235,215,.5); border-radius: 14px; background: rgba(11,30,42,.35); padding: 16px; font-size: 15px; line-height: 1.5; color: rgba(245,235,215,.92); }
+  .neu .nbox p { margin: 0 0 12px; }
+  .neu .nbox h3 { margin: 18px 0 8px; font: 700 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(245,235,215,.8); }
+  .neu ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; }
+  .neu ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+  .neu a { color: var(--orange); }
+  .neu .btn { display: inline-block; margin: 8px 0 0; background: var(--orange); color: var(--ink); border: 3px solid var(--ink); text-decoration: none; }
+  .view[hidden] { display: none; }
+  .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--ink); border-top: 3px solid var(--cream);
+    padding: 8px max(12px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+  .tabbar .in { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px; border-radius: 14px; border: 2px solid transparent;
+    color: var(--cream); text-decoration: none; font: 700 12px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; letter-spacing: .02em; }
+  .tab .ti { font-size: 24px; line-height: 1; }
+  .tab[aria-current="page"] { background: var(--orange); color: var(--ink); border-color: var(--cream); }
+  .tab:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
   .vorschlag { margin-top: 22px; }
   .vorschlag details { border: 2px solid rgba(245,235,215,.5); border-radius: 14px; background: rgba(11,30,42,.35); padding: 4px 16px; }
   .vorschlag summary { cursor: pointer; font: 900 18px/1.3 var(--serif); padding: 12px 0; }
@@ -177,6 +206,7 @@
     <p class="claim">Kölsch. Kinder. Chaos.</p>
   </header>
 
+  <section class="view" id="v-termine">
   <h2>Termine</h2>
   <p class="nameinfo" id="nameInfo" hidden></p>
   <section id="termine" aria-live="polite"><div class="leer">Lade Termine ...</div></section>
@@ -201,7 +231,9 @@
       </form>
     </details>
   </section>
+  </section>
 
+  <section class="view" id="v-tools" hidden>
   <h2>Werkzeuge</h2>
   <nav class="tiles" id="tiles" aria-label="Werkzeuge">
     <noscript>
@@ -210,6 +242,24 @@
       <a class="tile" href="/geschichte/"><div class="ic">🌙</div><div><b>Gutenachtgeschichte</b></div></a>
     </noscript>
   </nav>
+  </section>
+
+  <section class="view" id="v-neu" hidden>
+  <section class="neu" id="neu">
+    <h2>Neu hier? So geht's</h2>
+      <div class="nbox">
+        <p>Schälsick Dads sind Väter von der Schäl Sick und aus dem Umland: Merheim, Dünnwald, Porz, Lohmar, Troisdorf. Wir gehen mit den Kindern spazieren, tauschen, was daheim rumliegt, und treffen uns auf ein Kölsch.</p>
+        <ol>
+          <li><b>In die WhatsApp-Community.</b> Dort werden Termine abgesprochen und Fragen geklärt.
+            <div id="neuJoin"></div></li>
+          <li><b>Termine ansehen.</b> Hier oben stehen sie. Mit „Bin dabei" sagst du in der Gruppe Bescheid.</li>
+          <li><b>Vorbeikommen.</b> Kinderwagen oder Kind an die Hand, mehr braucht es nicht.</li>
+        </ol>
+        <h3>Spielregeln</h3>
+        <ul id="regeln"></ul>
+        <p id="neuInsta" style="margin-top:14px"></p>
+      </div>
+  </section>
 
   <section class="install" id="install" hidden>
     <h2>App aufs Handy</h2>
@@ -238,6 +288,23 @@
       </details>
     </div>
   </section>
+  </section>
+
+
+
+
+
+
+  <dialog id="shareDlg" aria-labelledby="shareTitel">
+    <h3 id="shareTitel">Termin teilen</h3>
+    <img class="vorschaubild" id="shareImg" alt="Vorschau des Termin-Bildes">
+    <div class="zeile2">
+      <button class="btn ja" type="button" id="shareBild">🖼️ Bild teilen</button>
+      <a class="btn" id="shareText" href="#" target="_blank" rel="noopener">💬 Nur Text in WhatsApp</a>
+      <button class="btn" type="button" id="shareZu">Schließen</button>
+    </div>
+    <p class="hinweis" id="shareHinweis" hidden></p>
+  </dialog>
 
   <dialog id="nameDlg" aria-labelledby="nameTitel">
     <form id="nameForm">
@@ -256,6 +323,14 @@
     Von Dads für Dads · us Kölle
   </footer>
 </div>
+
+  <nav class="tabbar" aria-label="Hauptmenü">
+    <div class="in">
+      <a class="tab" id="tab-termine" href="#termine"><span class="ti" aria-hidden="true">📅</span><span>Termine</span></a>
+      <a class="tab" id="tab-tools" href="#tools"><span class="ti" aria-hidden="true">🛠️</span><span>Werkzeuge</span></a>
+      <a class="tab" id="tab-neu" href="#neu"><span class="ti" aria-hidden="true">👋</span><span>Neu hier</span></a>
+    </div>
+  </nav>
 
 <script>
 (function () {
@@ -385,17 +460,174 @@
 
   // Teilen: öffnet WhatsApp mit fertiger Nachricht, dort Gruppe wählen
   var SEITE = 'https://schaelsickdads.github.io/';
-  function teilenKnopf(t, alt) {
+  function teilText(t) {
     var zeilen = ['🍺 ' + t.titel, wannText(t)];
     if (t.ort) zeilen.push('📍 ' + t.ort);
     if (hatKarte(t)) zeilen.push('Karte: ' + t.karte);
     if (t.text) zeilen.push(t.text);
     var u = sichererLink(t.link);
     zeilen.push('', (u ? 'Infos: ' + u + '\n' : '') + 'Alle Termine: ' + SEITE);
-    var a = el('a', 'btn' + (alt ? ' alt' : ''), '💬 Teilen');
-    a.href = 'https://wa.me/?text=' + encodeURIComponent(zeilen.join('\n'));
-    a.target = '_blank'; a.rel = 'noopener';
-    return a;
+    return zeilen.join('\n');
+  }
+
+  // ---- Story-Bild (1080 x 1920) für WhatsApp-Status und Instagram-Story ----
+  var logoBild = null;
+  function ladeLogo() {
+    return new Promise(function (ok) {
+      if (logoBild) return ok(logoBild);
+      var src = document.querySelector('header img');
+      var im = new Image();
+      im.onload = function () { logoBild = im; ok(im); };
+      im.onerror = function () { ok(null); };
+      im.src = src ? src.src : '/logo.png';
+    });
+  }
+  function umbruch(ctx, text, maxB, maxZ) {
+    var worte = String(text).split(/\s+/), zeilen = [], z = '';
+    worte.forEach(function (w) {
+      var test = z ? z + ' ' + w : w;
+      if (ctx.measureText(test).width <= maxB || !z) z = test; else { zeilen.push(z); z = w; }
+    });
+    if (z) zeilen.push(z);
+    if (zeilen.length > maxZ) {
+      zeilen = zeilen.slice(0, maxZ);
+      var l = zeilen[maxZ - 1];
+      while (l.length > 1 && ctx.measureText(l + '…').width > maxB) l = l.slice(0, -1);
+      zeilen[maxZ - 1] = l + '…';
+    }
+    return zeilen;
+  }
+  function rr(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function bildZeichnen(t, logo) {
+    var W = 1080, H = 1920, c = document.createElement('canvas'); c.width = W; c.height = H;
+    var x = c.getContext('2d');
+    var NAVY = '#143446', NAVY2 = '#1f4e66', INK = '#0b1e2a', CREAM = '#f5ebd7', ORANGE = '#efa33a', RUST = '#cd6a2a';
+    var SERIF = '"Cooper Black","Chunk Five Print",Rockwell,Georgia,"DejaVu Serif",serif';
+    var SANS = 'system-ui,-apple-system,"Segoe UI",Roboto,sans-serif';
+    var MONO = 'ui-monospace,"SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace';
+    var g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, NAVY); g.addColorStop(1, NAVY2);
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+
+    // Logo oben
+    if (logo) { var ls = 340, lh = ls * logo.height / logo.width; x.drawImage(logo, (W - ls) / 2, 90, ls, lh); }
+
+    // Inhalt messen
+    var cx = 90, cw = W - 180, pad = 56, inner = cw - 2 * pad, bandH = 104;
+    x.textBaseline = 'alphabetic';
+    var tSize = 104, tZ;
+    for (;;) {
+      x.font = '900 ' + tSize + 'px ' + SERIF; tZ = umbruch(x, t.titel, inner, 99);
+      var passt = tZ.every(function (z) { return x.measureText(z).width <= inner; });
+      if (passt && (tZ.length <= 2 || (tZ.length <= 3 && tSize <= 88))) break;
+      if (tSize <= 56) { tZ = umbruch(x, t.titel, inner, 3); break; }
+      tSize -= 6;
+    }
+    var tLH = Math.round(tSize * 1.12);
+    var d = toDate(t.p, false);
+    var datum = TAGE[d.getDay()] + ', ' + t.p.d + '. ' + MONATE[t.p.mo - 1];
+    var zeit = t.p.h != null ? zwei(t.p.h) + ':' + zwei(t.p.mi) + (t.e && t.e.h != null ? '–' + zwei(t.e.h) + ':' + zwei(t.e.mi) : '') + ' Uhr' : 'ganztägig';
+    var zSize = 76; x.font = '900 ' + zSize + 'px ' + SANS;
+    while (x.measureText(zeit).width > inner && zSize > 40) { zSize -= 4; x.font = '900 ' + zSize + 'px ' + SANS; }
+    x.font = '700 50px ' + SANS;
+    var ortZ = (t.ort) ? umbruch(x, t.ort, inner - 70, 3) : [];
+    x.font = '400 40px ' + SANS;
+    var notZ = t.text ? umbruch(x, t.text, inner, 3) : [];
+
+    var h = bandH + 52 + tZ.length * tLH + 36 + 62 + 16 + 84 + (ortZ.length ? 28 + ortZ.length * 60 : 0) + (notZ.length ? 28 + notZ.length * 54 : 0) + 56 + 4 + 44 + 68 + 56;
+    var cy = Math.max(500, Math.round((H - 160 - h + 480) / 2));
+    if (cy + h > H - 250) cy = H - 250 - h;
+
+    // Karte mit orangem Schatten
+    x.fillStyle = ORANGE; rr(x, cx + 18, cy + 20, cw, h, 44); x.fill();
+    x.fillStyle = CREAM; rr(x, cx, cy, cw, h, 44); x.fill();
+    x.save(); rr(x, cx, cy, cw, h, 44); x.clip();
+    x.fillStyle = ORANGE; x.fillRect(cx, cy, cw, bandH);
+    x.fillStyle = INK; x.fillRect(cx, cy + bandH - 6, cw, 6);
+    x.restore();
+    x.lineWidth = 8; x.strokeStyle = INK; rr(x, cx, cy, cw, h, 44); x.stroke();
+
+    var px = cx + pad, y = cy;
+    x.fillStyle = INK; x.font = '700 40px ' + MONO; x.fillText('🍺  TERMIN', px, y + 66);
+    var cd = countdown(t);
+    if (cd) {
+      x.font = '700 32px ' + SANS; var cw2 = x.measureText(cd.toUpperCase()).width + 44;
+      x.fillStyle = INK; rr(x, cx + cw - pad - cw2, y + 26, cw2, 52, 26); x.fill();
+      x.fillStyle = CREAM; x.fillText(cd.toUpperCase(), cx + cw - pad - cw2 + 22, y + 63);
+    }
+    y += bandH + 52;
+    x.fillStyle = NAVY; x.font = '900 ' + tSize + 'px ' + SERIF;
+    tZ.forEach(function (z, i) { x.fillText(z, px, y + tSize * 0.86 + i * tLH); });
+    y += tZ.length * tLH + 36;
+    x.font = '700 54px ' + SANS; x.fillStyle = NAVY; x.fillText(datum, px, y + 46); y += 62 + 16;
+    x.font = '900 ' + zSize + 'px ' + SANS; x.fillStyle = RUST; x.fillText(zeit, px, y + 62); y += 84;
+    if (ortZ.length) {
+      y += 28; x.font = '700 50px ' + SANS;
+      ortZ.forEach(function (z, i) { if (i === 0) { x.fillStyle = INK; x.fillText('📍', px, y + 46); } x.fillStyle = NAVY; x.fillText(z, px + 70, y + 46 + i * 60); });
+      y += ortZ.length * 60;
+    }
+    if (notZ.length) {
+      y += 28; x.font = '400 40px ' + SANS; x.fillStyle = 'rgba(20,52,70,.85)';
+      notZ.forEach(function (z, i) { x.fillText(z, px, y + 38 + i * 54); });
+      y += notZ.length * 54;
+    }
+    y += 56; x.strokeStyle = NAVY; x.lineWidth = 5; x.setLineDash([22, 14]); x.beginPath(); x.moveTo(px, y); x.lineTo(cx + cw - pad, y); x.stroke(); x.setLineDash([]);
+    y += 4 + 44; x.fillStyle = NAVY; x.font = '700 40px ' + SANS; x.fillText('Alle Termine und Bin dabei:', px, y);
+    y += 62; x.fillStyle = RUST; x.font = '900 46px ' + SANS; x.fillText('schaelsickdads.github.io', px, y);
+
+    // Fuß
+    x.textAlign = 'center'; x.fillStyle = ORANGE; x.font = '900 60px ' + SERIF; x.fillText('Kölsch. Kinder. Chaos.', W / 2, H - 110);
+    x.fillStyle = 'rgba(245,235,215,.75)'; x.font = '700 34px ' + MONO; x.fillText('@schaelsickdads', W / 2, H - 56);
+    x.textAlign = 'left';
+    return c;
+  }
+
+  var shareT = null, shareC = null;
+  function oeffneTeilen(t) {
+    var dlg = document.getElementById('shareDlg');
+    shareT = t; shareC = null;
+    document.getElementById('shareImg').removeAttribute('src');
+    document.getElementById('shareText').href = 'https://wa.me/?text=' + encodeURIComponent(teilText(t));
+    var hint = document.getElementById('shareHinweis'); hint.hidden = true; hint.textContent = '';
+    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+    ladeLogo().then(function (logo) {
+      if (shareT !== t) return;
+      shareC = bildZeichnen(t, logo);
+      document.getElementById('shareImg').src = shareC.toDataURL('image/png');
+    });
+  }
+  (function () {
+    var dlg = document.getElementById('shareDlg');
+    if (!dlg) return;
+    document.getElementById('shareZu').addEventListener('click', function () { shareT = null; if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); });
+    document.getElementById('shareBild').addEventListener('click', function () {
+      var hint = document.getElementById('shareHinweis');
+      if (!shareC) return;
+      shareC.toBlob(function (blob) {
+        if (!blob) return;
+        var file = null;
+        try { file = new File([blob], 'schaelsick-dads-termin.png', { type: 'image/png' }); } catch (e) {}
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: shareT ? shareT.titel : 'Termin' }).catch(function () {});
+          return;
+        }
+        // Fallback (Computer, ältere Browser): Bild als Datei speichern
+        var u = URL.createObjectURL(blob), a = document.createElement('a');
+        a.href = u; a.download = 'schaelsick-dads-termin.png'; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+        hint.textContent = 'Wenn nichts passiert: Bild oben gedrückt halten und „Bild speichern" wählen.';
+        hint.hidden = false;
+      }, 'image/png');
+    });
+  })();
+
+  function teilenKnopf(t, alt) {
+    var b = el('button', 'btn' + (alt ? ' alt' : ''), '💬 Teilen');
+    b.type = 'button';
+    b.addEventListener('click', function () { oeffneTeilen(t); });
+    return b;
   }
 
   // ---------- Zusagen per WhatsApp ----------
@@ -576,6 +808,45 @@
   }
 
   renderNameInfo();
+  // ---------- Neu hier? ----------
+  function zeigeNeu(cfg) {
+    cfg = cfg || {};
+    var j = document.getElementById('neuJoin'); j.textContent = '';
+    var link = typeof cfg.community_link === 'string' ? cfg.community_link : '';
+    if (/^https:\/\/(chat\.whatsapp\.com|wa\.me)\//i.test(link)) {
+      var a = el('a', 'btn', 'Zur WhatsApp-Community'); a.href = link; a.target = '_blank'; a.rel = 'noopener'; j.appendChild(a);
+    } else {
+      j.appendChild(el('span', null, 'Den Einladungslink schickt dir ein Dad aus der Gruppe.'));
+    }
+    var ul = document.getElementById('regeln'); ul.textContent = '';
+    (Array.isArray(cfg.regeln) ? cfg.regeln : []).slice(0, 10).forEach(function (r) { if (typeof r === 'string' && r.trim()) ul.appendChild(el('li', null, r.trim().slice(0, 200))); });
+    var ig = typeof cfg.instagram === 'string' && /^[A-Za-z0-9._]{1,30}$/.test(cfg.instagram) ? cfg.instagram : '';
+    var p = document.getElementById('neuInsta'); p.textContent = '';
+    if (ig) { p.appendChild(document.createTextNode('Bilder und Reels: ')); var l = el('a', null, '@' + ig); l.href = 'https://instagram.com/' + ig; l.target = '_blank'; l.rel = 'noopener'; p.appendChild(l); }
+  }
+  // ---------- Ansichten (Tab-Leiste unten) ----------
+  var ANSICHTEN = ['termine', 'tools', 'neu'];
+  function zeigeAnsicht(name) {
+    if (ANSICHTEN.indexOf(name) < 0) name = 'termine';
+    ANSICHTEN.forEach(function (n) {
+      document.getElementById('v-' + n).hidden = n !== name;
+      var t = document.getElementById('tab-' + n);
+      if (n === name) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+    });
+    window.scrollTo(0, 0);
+  }
+  function ausHash() { zeigeAnsicht((location.hash || '').replace('#', '')); }
+  window.addEventListener('hashchange', ausHash);
+  ANSICHTEN.forEach(function (n) {
+    document.getElementById('tab-' + n).addEventListener('click', function (e) {
+      e.preventDefault();
+      try { if (location.hash !== '#' + n) location.hash = n; } catch (x) {}
+      zeigeAnsicht(n);
+    });
+  });
+  ausHash();
+  laden('/config.json').catch(function () { return {}; }).then(function (c) { zeigeNeu(c); });
+
   laden('/tools.json').then(zeigeTools).catch(function () {
     document.getElementById('tiles').appendChild(el('div', 'leer', 'Die Werkzeuge konnten nicht geladen werden. Bitte kurz neu laden.'));
   });

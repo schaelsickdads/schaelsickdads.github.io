@@ -21,3 +21,8 @@ Gezählt wird im WhatsApp-Chat. Wer möchte, trägt die Zahl auf `/termin/` mit 
 Auf der Startseite gibt es das Feld „Termin fehlt? Schlag ihn vor". Es erzeugt eine fertige WhatsApp-Nachricht mit Titel, Datum, Uhrzeit und Ort.
 In `index.html` kann bei `FABIAN_WA` optional eine WhatsApp-Nummer (z. B. `49151...`) eingetragen werden. Achtung: Sie steht dann öffentlich im Code.
 Leer gelassen wählt der Absender den Chat selbst (Fabian oder Gruppe).
+
+## Teilen und „Neu hier?"
+- Pro Termin öffnet „💬 Teilen" einen Dialog mit einem Story-Bild (1080 x 1920) für WhatsApp-Status und Instagram-Story, plus den Text für WhatsApp.
+- `config.json`: `community_link` (WhatsApp-Einladungslink, muss mit https://chat.whatsapp.com/ beginnen), `instagram` (Name ohne @) und `regeln` (Liste).
+- Unten gibt es eine Tab-Leiste (Termine, Werkzeuge, Neu hier). `https://schaelsickdads.github.io/#neu` öffnet „Neu hier“ direkt, gedacht für die Instagram-Bio.
