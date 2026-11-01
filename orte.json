@@ -16,5 +16,14 @@
     "karte": "https://maps.app.goo.gl/YVopNAtBPUj1sTm58?g_st=ac",
     "lat": 50.896719,
     "lon": 7.096891
+  },
+  {
+    "name": "Spielplatz Fock",
+    "art": "Spielplatz",
+    "stadtteil": "Rath-Heumar",
+    "text": "Durch den Fußballplatz und die großen Fußweg drum herum auch super für 'nen Dad Walk",
+    "karte": "https://maps.app.goo.gl/UjCPRGFNhG5xscYz7?g_st=ac",
+    "lat": 50.918117,
+    "lon": 7.085226
   }
 ]
