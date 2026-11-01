@@ -2,7 +2,7 @@
 // Er gilt technisch für die ganze Domain, fasst aber nur die Dateien unten an.
 // Alles andere (/walking-dads/, /hammer-deals/, /geschichte/ ...) geht ungefiltert ans Netz.
 const CACHE = 'dads-start-v1';
-const SHELL = ['/', '/index.html', '/logo.png', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
+const SHELL = ['/', '/index.html', '/logo.png', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
 const DATA = ['/tools.json', '/termine.json'];
 
 self.addEventListener('install', (e) => {

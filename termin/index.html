@@ -63,7 +63,6 @@
   .row .b { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
   .zus { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
   .zus .zl { font: 700 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: rgba(245,235,215,.85); margin-right: 2px; }
-  .chip[aria-pressed="true"] { background: var(--orange); }
   .zus .zn { min-width: 30px; text-align: center; font: 900 20px var(--serif); }
   .mut { font-size: 13px; opacity: .75; }
   .bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -252,23 +251,20 @@
       r.appendChild(el('div', 't', t.titel || '(ohne Titel)'));
       r.appendChild(el('div', 'm', wann(t) + (t.ort ? ' · ' + t.ort : '') + (v ? ' · vorbei' : '')));
       if (!v) {
-        var STUFEN = ['0-1', '2-3', '4+'];
-        var cur = { papas: STUFEN.indexOf(t.papas) >= 0 ? t.papas : '', kinder: STUFEN.indexOf(t.kinder) >= 0 ? t.kinder : '' };
+        var zahl = function (x) { return (typeof x === 'number' && x > 0) ? Math.min(Math.floor(x), 99) : 0; };
+        var cur = { papas: zahl(t.papas), kinder: zahl(t.kinder) };
         var orig = { papas: cur.papas, kinder: cur.kinder };
         var sv = el('button', 'btn small', 'Speichern'); sv.type = 'button'; sv.hidden = true;
         var geaendert = function () { sv.hidden = cur.papas === orig.papas && cur.kinder === orig.kinder; };
         [['papas', 'Papas'], ['kinder', 'Kinder']].forEach(function (f) {
-          var zr = el('div', 'zus'), chips = [];
+          var zr = el('div', 'zus');
           zr.appendChild(el('span', 'zl', f[1]));
-          STUFEN.forEach(function (st) {
-            var c = el('button', 'btn small chip', st.replace('-', '–')); c.type = 'button';
-            c.paint = function () { c.setAttribute('aria-pressed', cur[f[0]] === st ? 'true' : 'false'); };
-            c.addEventListener('click', function () {
-              cur[f[0]] = cur[f[0]] === st ? '' : st;       // nochmal tippen = zurücknehmen
-              chips.forEach(function (x) { x.paint(); }); geaendert();
-            });
-            chips.push(c); c.paint(); zr.appendChild(c);
-          });
+          var mi = el('button', 'btn small', '−'); mi.type = 'button';
+          var zn = el('span', 'zn', String(cur[f[0]]));
+          var pl = el('button', 'btn small', '+'); pl.type = 'button';
+          mi.addEventListener('click', function () { if (cur[f[0]] > 0) { cur[f[0]]--; zn.textContent = String(cur[f[0]]); geaendert(); } });
+          pl.addEventListener('click', function () { if (cur[f[0]] < 99) { cur[f[0]]++; zn.textContent = String(cur[f[0]]); geaendert(); } });
+          zr.appendChild(mi); zr.appendChild(zn); zr.appendChild(pl);
           r.appendChild(zr);
         });
         var sz = el('div', 'zus'); sz.appendChild(sv); r.appendChild(sz);
@@ -276,10 +272,10 @@
           sv.disabled = true;
           aendern(function (arr) {
             for (var k = 0; k < arr.length; k++) if (gleich(arr[k], t)) {
-              ['papas', 'kinder'].forEach(function (key) { if (cur[key]) arr[k][key] = cur[key]; else delete arr[k][key]; });
+              ['papas', 'kinder'].forEach(function (key) { if (cur[key] > 0) arr[k][key] = cur[key]; else delete arr[k][key]; });
             }
             return arr;
-          }, 'Zusagen ' + t.titel + ': Papas ' + (cur.papas || '-') + ', Kinder ' + (cur.kinder || '-'))
+          }, 'Zusagen ' + t.titel + ': ' + cur.papas + ' Papas, ' + cur.kinder + ' Kinder')
             .then(function () { meldung($('msg'), 'Zusagen gespeichert für „' + t.titel + '“.', 'ok'); return ladeListe(); })
             .catch(function (e) { sv.disabled = false; meldung($('msg'), e.user || e.message, 'err'); });
         });

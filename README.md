@@ -5,7 +5,7 @@ Liegt unter https://schaelsickdads.github.io/ und verlinkt auf die anderen Repos
 - `tools.json`: Kacheln (name, pfad, icon, text). Neues Tool = ein Block mehr.
 - `termine.json`: Termine. Alte verschwinden automatisch. Beispiel:
   `{"titel": "Stammtisch", "start": "2026-11-20T19:30", "ende": "2026-11-20T22:00", "ort": "Brauhaus", "text": "Kurzinfo", "link": "https://..."}`
-  `ende`, `ort`, `karte` (Google-Maps-Link), `text`, `link`, `papas` und `kinder` (je `"0-1"`, `"2-3"` oder `"4+"`) sind optional. Ohne Uhrzeit (`"2026-11-20"`) wird es ein Ganztagstermin.
+  `ende`, `ort`, `karte` (Google-Maps-Link), `text`, `link`, `papas` und `kinder` (Zahlen) sind optional. Ohne Uhrzeit (`"2026-11-20"`) wird es ein Ganztagstermin.
 - `sw.js`: Service Worker. Fasst nur die Startseite an, alle Unterpfade (/walking-dads/ usw.) laufen ungefiltert durch.
 
 ## Termine eintragen (nur für Admins)
