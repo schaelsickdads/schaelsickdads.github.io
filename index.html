@@ -70,35 +70,50 @@
   .tile span { display: block; margin-top: 4px; font-size: 15px; color: rgba(245,235,215,.82); }
   .tile:focus-visible, .btn:focus-visible { outline: 4px solid var(--orange); outline-offset: 3px; }
 
-  /* Termine */
-  .next {
-    background: var(--cream); color: var(--navy); border: 3px solid var(--ink); border-radius: 18px; overflow: hidden;
-    box-shadow: 8px 9px 0 var(--orange); transform: rotate(-.6deg);
+  /* Termin-Karten: Serif nur für den Titel, alles andere in einer Sans-Schrift */
+  .tk { border-radius: 18px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .tk .titel { font: 900 24px/1.15 var(--serif); overflow-wrap: break-word; hyphens: auto; min-width: 0; }
+  .tk .info { display: grid; gap: 8px; margin-top: 12px; font: 600 16px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .tk .info > div { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 8px; align-items: start; }
+  .tk .info .ico { text-align: center; }
+  .tk .info a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .tk .note { margin-top: 12px; font: 400 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; opacity: .88; }
+  .tk .aktionen { display: grid; gap: 10px; margin-top: 16px; padding-top: 16px; }
+  .tk .zeile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+  .tk .btn {
+    width: 100%; min-height: 46px; display: flex; align-items: center; justify-content: center; text-align: center;
+    font: 700 15px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 8px 10px; border-width: 2px; border-radius: 12px; margin: 0;
   }
+  .tk .mehr { text-align: center; font: 700 14px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 4px 0; }
+  .tk .tag {
+    display: inline-block; flex: 0 0 auto; margin: 0; white-space: nowrap;
+    font: 700 12px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; letter-spacing: .05em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px; background: var(--orange); color: var(--ink); border: 2px solid var(--ink);
+  }
+
+  /* Der nächste Termin: helle Ticket-Karte */
+  .tk.next { background: var(--cream); color: var(--navy); border: 3px solid var(--ink); overflow: hidden; box-shadow: 8px 9px 0 var(--orange); transform: rotate(-.6deg); }
   .next .lbl {
-    background: var(--orange); color: var(--ink); border-bottom: 3px solid var(--ink);
-    padding: 8px 18px; font: 700 13px var(--mono); letter-spacing: .14em; text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    background: var(--orange); color: var(--ink); border-bottom: 3px solid var(--ink); padding: 9px 16px;
+    font: 700 13px var(--mono); letter-spacing: .12em; text-transform: uppercase;
   }
-  .next .nbody { padding: 14px 18px 18px; }
-  .next .titel { font: 900 28px/1.12 var(--serif); margin: 0 0 6px; overflow-wrap: anywhere; }
-  .when { font-weight: 700; }
-  .next .when { font-size: 18px; color: var(--navy); }
-  .next .ort, .next .note { margin-top: 4px; }
-  .next .ort a { color: var(--rust); font-weight: 700; }
-  .next .zusage { margin-top: 16px; padding-top: 16px; border-top: 3px dashed var(--navy); }
-  .next .btn { background: var(--navy); color: var(--cream); border-color: var(--ink); }
-  .next .btn.alt { background: transparent; color: var(--navy); border-color: var(--navy); }
-  .next .btn.ja { background: var(--orange); color: var(--ink); box-shadow: 3px 4px 0 var(--ink); }
-  .next .tag { border: 2px solid var(--ink); margin-left: 0; margin-right: 6px; }
-  .next .tag.zu { background: var(--teal); color: var(--ink); }
-  .btn.ja { background: var(--orange); color: var(--ink); }
-  .ort, .note { opacity: .95; }
-  .tag { display: inline-block; background: var(--orange); color: var(--ink); font: 700 12px var(--mono); letter-spacing: .04em;
-    text-transform: uppercase; padding: 2px 9px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
-  .ort a, .meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-  .tag.zu { background: var(--teal); color: var(--ink); }
-  .zusage { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; margin-top: 12px; }
-  .zusage .btn { width: 100%; text-align: center; }
+  .next .lbl .tag { background: var(--ink); color: var(--cream); }
+  .next .nbody { padding: 16px 18px 18px; }
+  .next .titel { font-size: 28px; }
+  .next .info a { color: var(--rust); }
+  .next .aktionen { border-top: 3px dashed var(--navy); }
+  .tk.next .btn, .tk.next .btn.alt { background: transparent; color: var(--navy); border-color: var(--navy); }
+  .tk.next .btn.ja { background: var(--orange); color: var(--ink); border-color: var(--ink); box-shadow: 3px 4px 0 var(--ink); }
+  .next .mehr { color: var(--navy); }
+
+  /* Weitere Termine: dunkle Karte */
+  .tk.row { border: 2px solid rgba(245,235,215,.5); background: rgba(11,30,42,.35); color: var(--cream); padding: 16px; }
+  .row .tag { margin-bottom: 8px; }
+  .row .aktionen { border-top: 2px dashed rgba(245,235,215,.35); }
+  .tk.row .btn, .tk.row .btn.alt { background: transparent; color: var(--cream); border-color: var(--cream); }
+  .tk.row .btn.ja { background: var(--orange); color: var(--ink); border-color: var(--ink); }
+  .row .mehr { color: var(--cream); }
   .nameinfo { margin: -4px 0 12px; font-size: 13px; color: rgba(245,235,215,.8); }
   .nameinfo button { appearance: none; background: none; border: 0; padding: 0; color: var(--orange); font: inherit; text-decoration: underline; cursor: pointer; }
   dialog#nameDlg { border: 3px solid var(--cream); border-radius: 18px; background: var(--navy); color: var(--cream);
@@ -129,13 +144,6 @@
   }
   .btn.alt { background: transparent; color: var(--cream); border-color: var(--cream); }
   .list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 18px; }
-  .row {
-    border: 2px solid rgba(245,235,215,.5); border-radius: 14px; padding: 12px 14px; background: rgba(11,30,42,.35);
-  }
-  .row .titel { font: 900 19px/1.2 var(--serif); }
-  .row .meta { font-size: 15px; color: rgba(245,235,215,.85); margin-top: 2px; }
-  .row .btns { margin-top: 8px; }
-  .row .btn { font-size: 14px; padding: 6px 10px; border-width: 2px; }
   .leer { border: 2px dashed rgba(245,235,215,.45); border-radius: 14px; padding: 16px; color: rgba(245,235,215,.85); }
 
 
@@ -369,7 +377,7 @@
   function hatKarte(t) { return !!(t.karte && kartenLinkOk(t.karte)); }
   // Mit eingetragenem Karten-Link führt der Ort direkt dorthin, sonst Suche nach dem Wort
   function ortLink(t) {
-    var a = el('a', null, '📍 ' + (t.ort || 'Karte öffnen'));
+    var a = el('a', null, t.ort || 'Karte öffnen');
     a.href = hatKarte(t) ? t.karte : ((IOS ? 'https://maps.apple.com/?q=' : 'https://www.google.com/maps/search/?api=1&query=') + encodeURIComponent(t.ort));
     a.target = '_blank'; a.rel = 'noopener';
     return a;
@@ -384,7 +392,7 @@
     if (t.text) zeilen.push(t.text);
     var u = sichererLink(t.link);
     zeilen.push('', (u ? 'Infos: ' + u + '\n' : '') + 'Alle Termine: ' + SEITE);
-    var a = el('a', 'btn' + (alt ? ' alt' : ''), 'In WhatsApp teilen');
+    var a = el('a', 'btn' + (alt ? ' alt' : ''), '💬 Teilen');
     a.href = 'https://wa.me/?text=' + encodeURIComponent(zeilen.join('\n'));
     a.target = '_blank'; a.rel = 'noopener';
     return a;
@@ -458,22 +466,22 @@
     return b;
   }
   function zusageZeile(t) {
-    var z = el('div', 'zusage');
+    var z = el('div', 'zeile');
     z.appendChild(zusageKnopf(t, true));
     z.appendChild(zusageKnopf(t, false));
     return z;
   }
   // Anzahl Papas und Kinder (nur Zahlen, 1 bis 99)
   function zahlOk(v) { return (typeof v === 'number' && isFinite(v) && v > 0) ? Math.min(Math.floor(v), 99) : 0; }
-  function zusagenEl(t) {
-    var f = document.createDocumentFragment(), n = 0;
-    if (t.papas > 0) { f.appendChild(el('span', 'tag zu', t.papas + (t.papas === 1 ? ' Papa' : ' Papas'))); n++; }
-    if (t.kinder > 0) { f.appendChild(el('span', 'tag zu', t.kinder + (t.kinder === 1 ? ' Kind' : ' Kinder'))); n++; }
-    return n ? f : null;
+  function zusagenText(t) {
+    var teile = [];
+    if (t.papas > 0) teile.push(t.papas + (t.papas === 1 ? ' Papa' : ' Papas'));
+    if (t.kinder > 0) teile.push(t.kinder + (t.kinder === 1 ? ' Kind' : ' Kinder'));
+    return teile.length ? teile.join(' · ') + ' dabei' : '';
   }
 
   function icsKnopf(t) {
-    var b = el('button', 'btn', 'In den Kalender');
+    var b = el('button', 'btn', '📅 Kalender');
     b.type = 'button';
     b.addEventListener('click', function () {
       var blob = new Blob([ics(t)], { type: 'text/calendar;charset=utf-8' });
@@ -514,46 +522,48 @@
       return;
     }
 
-    var n = liste[0];
-    var card = el('div', 'next');
-    card.appendChild(el('div', 'lbl', '🍺 Nächster Termin'));
-    var nb = el('div', 'nbody');
-    nb.appendChild(el('div', 'titel', n.titel));
-    var wh = el('div', 'when', wannText(n));
-    wh.appendChild(document.createElement('br'));
-    var tg = tagEl(n); if (tg) wh.appendChild(tg);
-    var zp = zusagenEl(n); if (zp) wh.appendChild(zp);
-    nb.appendChild(wh);
-    if (n.ort || hatKarte(n)) { var od = el('div', 'ort'); od.appendChild(ortLink(n)); nb.appendChild(od); }
-    if (n.text) nb.appendChild(el('div', 'note', n.text));
-    nb.appendChild(zusageZeile(n));
-    var bt = el('div', 'btns');
-    bt.appendChild(icsKnopf(n));
-    bt.appendChild(teilenKnopf(n, true));
-    var l1 = linkKnopf(n, true); if (l1) bt.appendChild(l1);
-    nb.appendChild(bt);
-    card.appendChild(nb);
-    box.appendChild(card);
+    function karte(t, naechster) {
+      var c = el('div', 'tk ' + (naechster ? 'next' : 'row'));
+      var tg = tagEl(t), body;
+      if (naechster) {
+        var lbl = el('div', 'lbl');
+        lbl.appendChild(el('span', null, '🍺 Nächster Termin'));
+        if (tg) lbl.appendChild(tg);
+        c.appendChild(lbl);
+        body = el('div', 'nbody'); c.appendChild(body);
+        body.appendChild(el('div', 'titel', t.titel));
+      } else {
+        body = c;
+        if (tg) body.appendChild(tg);
+        body.appendChild(el('div', 'titel', t.titel));
+      }
+      var info = el('div', 'info');
+      function zeile(icon, inhalt) {
+        var d = el('div'), i = el('span', 'ico', icon), x = el('span');
+        i.setAttribute('aria-hidden', 'true');
+        if (typeof inhalt === 'string') x.textContent = inhalt; else x.appendChild(inhalt);
+        d.appendChild(i); d.appendChild(x); info.appendChild(d);
+      }
+      zeile('📅', wannText(t));
+      if (t.ort || hatKarte(t)) zeile('📍', ortLink(t));
+      var zt = zusagenText(t); if (zt) zeile('👥', zt);
+      body.appendChild(info);
+      if (t.text) body.appendChild(el('div', 'note', t.text));
+      var ak = el('div', 'aktionen');
+      ak.appendChild(zusageZeile(t));
+      var z2 = el('div', 'zeile');
+      z2.appendChild(icsKnopf(t)); z2.appendChild(teilenKnopf(t, true));
+      ak.appendChild(z2);
+      var u = sichererLink(t.link);
+      if (u) { var m = el('a', 'mehr', 'Mehr Infos ›'); m.href = u; m.target = '_blank'; m.rel = 'noopener'; ak.appendChild(m); }
+      body.appendChild(ak);
+      return c;
+    }
 
+    box.appendChild(karte(liste[0], true));
     if (liste.length > 1) {
       var ul = el('div', 'list');
-      liste.slice(1).forEach(function (t) {
-        var r = el('div', 'row');
-        r.appendChild(el('div', 'titel', t.titel));
-        var mt = el('div', 'meta', wannText(t));
-        var tg2 = tagEl(t); if (tg2) mt.appendChild(tg2);
-        var zp2 = zusagenEl(t); if (zp2) mt.appendChild(zp2);
-        if (t.ort || hatKarte(t)) { mt.appendChild(document.createTextNode(' · ')); mt.appendChild(ortLink(t)); }
-        r.appendChild(mt);
-        if (t.text) r.appendChild(el('div', 'meta', t.text));
-        r.appendChild(zusageZeile(t));
-        var b2 = el('div', 'btns');
-        b2.appendChild(icsKnopf(t));
-        b2.appendChild(teilenKnopf(t, true));
-        var l2 = linkKnopf(t, true); if (l2) b2.appendChild(l2);
-        r.appendChild(b2);
-        ul.appendChild(r);
-      });
+      liste.slice(1).forEach(function (t) { ul.appendChild(karte(t, false)); });
       box.appendChild(ul);
     }
   }
