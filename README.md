@@ -26,3 +26,10 @@ Leer gelassen wählt der Absender den Chat selbst (Fabian oder Gruppe).
 - Pro Termin öffnet „💬 Teilen" einen Dialog mit einem Story-Bild (1080 x 1920) für WhatsApp-Status und Instagram-Story, plus den Text für WhatsApp.
 - `config.json`: `community_link` (WhatsApp-Einladungslink, muss mit https://chat.whatsapp.com/ beginnen), `instagram` (Name ohne @) und `regeln` (Liste).
 - Unten gibt es eine Tab-Leiste (Termine, Werkzeuge, Neu hier). `https://schaelsickdads.github.io/#neu` öffnet „Neu hier“ direkt, gedacht für die Instagram-Bio.
+
+## Orte
+
+- `orte.json`: Liste der Orte (name, art, stadtteil, text, karte, lat, lon). Arten mit eigener Farbe: Spielplatz, Kindercafé, Brunch, Ausflug, Kneipe (ohne Kids), Sonstiges.
+- Eintragen, ändern und löschen geht auf `/termin/` im Reiter „📍 Orte“. „Suchen“ findet den Kartenpunkt über OpenStreetMap (Nominatim) und füllt Breite und Länge aus.
+- Ohne `lat`/`lon` steht ein Ort nur in der Liste, nicht auf der Karte.
+- Die Karte nutzt Leaflet (liegt unter `vendor/leaflet/`, wird erst beim Öffnen der Kartenansicht geladen) mit OpenStreetMap-Kacheln.

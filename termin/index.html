@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#143446">
-<title>Termin eintragen</title>
+<title>Termine und Orte eintragen</title>
 <style>
   :root {
     --navy: #143446; --navy-2: #1f4e66; --ink: #0b1e2a; --cream: #f5ebd7;
@@ -33,6 +33,11 @@
   .card { background: var(--navy); border: 3px solid var(--cream); border-radius: 18px; padding: 16px; box-shadow: 8px 9px 0 var(--ink); }
   label { display: block; font: 700 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; margin: 14px 0 5px; color: rgba(245,235,215,.85); }
   label:first-child { margin-top: 0; }
+  select { width: 100%; font: 17px system-ui, sans-serif; color: var(--ink); background: var(--cream); border: 3px solid var(--ink); border-radius: 12px; padding: 11px 12px; min-width: 0; }
+  .umschalter { display: grid; grid-template-columns: 1fr 1fr; border: 3px solid var(--cream); border-radius: 999px; overflow: hidden; margin: 0 0 16px; }
+  .umschalter button { font: 700 16px system-ui, sans-serif; padding: 11px 8px; background: transparent; color: var(--cream); border: 0; cursor: pointer; }
+  .umschalter button[aria-pressed="true"] { background: var(--cream); color: var(--ink); }
+  .suche { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; }
   input, textarea {
     width: 100%; font: 17px system-ui, sans-serif; color: var(--ink); background: var(--cream);
     border: 3px solid var(--ink); border-radius: 12px; padding: 11px 12px; min-width: 0;
@@ -71,7 +76,7 @@
 <body>
 <div class="wrap">
   <div class="top"><span>SCHÄLSICK DADS // TERMINE</span><a href="/">zur Startseite</a></div>
-  <h1>Termin eintragen</h1>
+  <h1>Eintragen</h1>
 
   <!-- Einrichtung: einmalig pro Handy -->
   <section id="setup" hidden>
@@ -93,6 +98,11 @@
 
   <!-- Hauptteil -->
   <section id="main" hidden>
+    <div class="umschalter" role="group" aria-label="Was eintragen">
+      <button type="button" id="uTermine" aria-pressed="true">📅 Termine</button>
+      <button type="button" id="uOrte" aria-pressed="false">📍 Orte</button>
+    </div>
+   <div id="teilTermine">
     <p class="sub" id="modeHint">Neuer Termin</p>
     <form class="card" id="form" autocomplete="off">
       <label for="titel">Titel</label>
@@ -124,6 +134,45 @@
       <button class="btn small ghost" id="tokWeg" type="button">Schlüssel von diesem Gerät löschen</button>
     </div>
     <p class="mut">Änderungen sind etwa eine Minute später auf der Startseite zu sehen.</p>
+   </div>
+
+   <div id="teilOrte" hidden>
+    <p class="sub" id="oModeHint">Neuer Ort</p>
+    <form class="card" id="oForm" autocomplete="off">
+      <label for="oName">Name</label>
+      <input id="oName" required maxlength="80" placeholder="z. B. Spielplatz Rheinpark">
+      <label for="oArt">Art</label>
+      <select id="oArt">
+        <option>Spielplatz</option><option>Kindercafé</option><option>Brunch</option><option>Ausflug</option><option>Kneipe</option><option>Sonstiges</option>
+      </select>
+      <label for="oTeil">Stadtteil <span class="opt">(optional)</span></label>
+      <input id="oTeil" maxlength="40" placeholder="z. B. Deutz">
+      <label for="oText">Hinweis <span class="opt">(optional)</span></label>
+      <textarea id="oText" maxlength="300" placeholder="z. B. schattig, Kaffee-Kiosk, Bobbycar-Strecke"></textarea>
+      <label for="oKarte">Google-Maps-Link <span class="opt">(optional)</span></label>
+      <input id="oKarte" type="url" inputmode="url" placeholder="https://maps.app.goo.gl/...">
+      <label for="oAdr">Punkt auf der Karte</label>
+      <div class="suche">
+        <input id="oAdr" maxlength="120" placeholder="Straße, Ort oder Name">
+        <button class="btn" id="oSuche" type="button">Suchen</button>
+      </div>
+      <div id="oFund" class="mut" style="margin-top:8px"></div>
+      <div class="two">
+        <div><label for="oLat">Breite <span class="opt">(lat)</span></label><input id="oLat" inputmode="decimal" placeholder="50.9375"></div>
+        <div><label for="oLon">Länge <span class="opt">(lon)</span></label><input id="oLon" inputmode="decimal" placeholder="6.9603"></div>
+      </div>
+      <p class="mut" style="margin:6px 0 0">Mit „Suchen“ füllen sich Breite und Länge von selbst. Ohne Kartenpunkt steht der Ort nur in der Liste, nicht auf der Karte.</p>
+      <button class="btn main" id="oSave" type="submit">Speichern</button>
+      <button class="btn ghost" id="oCancel" type="button" style="width:100%;margin-top:10px" hidden>Abbrechen</button>
+      <div id="oMsg"></div>
+    </form>
+    <h2>Eingetragene Orte</h2>
+    <div id="oListe"><p class="mut">Lade ...</p></div>
+    <p class="mut">Änderungen sind etwa eine Minute später auf der Startseite zu sehen.</p>
+   <div class="bar" style="margin-top:18px">
+      <button class="btn small ghost" id="tokWeg2" type="button">Schlüssel von diesem Gerät löschen</button>
+   </div>
+   </div>
   </section>
 </div>
 
@@ -134,7 +183,8 @@
   // ---- Einstellungen ----
   var OWNER = 'schaelsickdads', REPO = 'schaelsickdads.github.io', BRANCH = 'main', PFAD = 'termine.json';
   var KEY = 'sd_termine_token';
-  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + PFAD;
+  function API(p) { return 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + (p || PFAD); }
+  var ORTE = 'orte.json';
 
   var $ = function (id) { return document.getElementById(id); };
   // erlaubt sind nur https-Links zu Google Maps oder Apple Karten
@@ -185,33 +235,36 @@
     for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     return new TextDecoder().decode(bytes);
   }
-  function holen() {
-    return fetch(API + '?ref=' + encodeURIComponent(BRANCH) + '&t=' + Date.now(), { headers: kopf(), cache: 'no-store' }).then(function (r) {
+  function holen(p) {
+    return fetch(API(p) + '?ref=' + encodeURIComponent(BRANCH) + '&t=' + Date.now(), { headers: kopf(), cache: 'no-store' }).then(function (r) {
       if (r.status === 404) return { arr: [], sha: undefined };
       if (!r.ok) throw fehler(r.status, 'Laden');
       return r.json().then(function (j) {
         var arr;
-        try { arr = JSON.parse(b64ToUtf8(j.content)); } catch (e) { var x = new Error('json'); x.user = 'termine.json ist kein gültiges JSON. Bitte im Repo prüfen.'; throw x; }
-        if (!Array.isArray(arr)) { var y = new Error('json'); y.user = 'termine.json muss eine Liste sein (eckige Klammern).'; throw y; }
+        try { arr = JSON.parse(b64ToUtf8(j.content)); } catch (e) { var x = new Error('json'); x.user = (p || PFAD) + ' ist kein gültiges JSON. Bitte im Repo prüfen.'; throw x; }
+        if (!Array.isArray(arr)) { var y = new Error('json'); y.user = (p || PFAD) + ' muss eine Liste sein (eckige Klammern).'; throw y; }
         return { arr: arr, sha: j.sha };
       });
     });
   }
-  function sortiere(arr) { return arr.slice().sort(function (a, b) { return String(a.start).localeCompare(String(b.start)); }); }
-  function schreiben(arr, sha, nachricht) {
-    var body = { message: nachricht, content: utf8ToB64(JSON.stringify(sortiere(arr), null, 2) + '\n'), branch: BRANCH };
+  function sortiere(arr, p) {
+    if (p === ORTE) return arr.slice().sort(function (a, b) { return String(a.art).localeCompare(String(b.art), 'de') || String(a.name).localeCompare(String(b.name), 'de'); });
+    return arr.slice().sort(function (a, b) { return String(a.start).localeCompare(String(b.start)); });
+  }
+  function schreiben(arr, sha, nachricht, p) {
+    var body = { message: nachricht, content: utf8ToB64(JSON.stringify(sortiere(arr, p), null, 2) + '\n'), branch: BRANCH };
     if (sha) body.sha = sha;
-    return fetch(API, { method: 'PUT', headers: kopf({ 'Content-Type': 'application/json' }), body: JSON.stringify(body) }).then(function (r) {
+    return fetch(API(p), { method: 'PUT', headers: kopf({ 'Content-Type': 'application/json' }), body: JSON.stringify(body) }).then(function (r) {
       if (!r.ok) throw fehler(r.status, 'Speichern');
       return r.json();
     });
   }
   // holt frisch, wendet die Änderung an, schreibt; bei Konflikt einmal wiederholen
-  function aendern(fn, nachricht) {
+  function aendern(fn, nachricht, p) {
     function lauf(versuch) {
-      return holen().then(function (d) {
+      return holen(p).then(function (d) {
         var neu = fn(d.arr.slice());
-        return schreiben(neu, d.sha, nachricht).catch(function (e) {
+        return schreiben(neu, d.sha, nachricht, p).catch(function (e) {
           if ((e.status === 409 || e.status === 422) && versuch < 1) return lauf(versuch + 1);
           throw e;
         });
@@ -369,9 +422,117 @@
       .catch(function (e) { meldung($('msg'), e.user || e.message, 'err'); });
   });
 
+  // ---- Orte ----
+  var ortAktuell = [], ortBearbeite = null, ortFund = null;
+  var ARTEN = ['Spielplatz', 'Kindercafé', 'Brunch', 'Ausflug', 'Kneipe', 'Sonstiges'];
+  function ortGleich(a, b) { return a && b && a.name === b.name && a.art === b.art; }
+  function zahlOrt(v, lo, hi, nm) {
+    v = String(v || '').trim().replace(',', '.');
+    if (!v) return null;
+    var n = Number(v);
+    if (!isFinite(n) || n < lo || n > hi) throw new Error(nm + ' ist ungültig.');
+    return Math.round(n * 1e6) / 1e6;
+  }
+  function zeigeOrteListe(arr) {
+    ortAktuell = sortiere(arr, ORTE);
+    var box = $('oListe'); box.textContent = '';
+    if (!ortAktuell.length) box.appendChild(el('p', 'mut', 'Noch keine Orte eingetragen.'));
+    ortAktuell.forEach(function (o) {
+      var r = el('div', 'row');
+      r.appendChild(el('div', 't', o.name || '(ohne Namen)'));
+      var punkt = typeof o.lat === 'number' && typeof o.lon === 'number';
+      r.appendChild(el('div', 'm', (o.art || 'Sonstiges') + (o.stadtteil ? ' · ' + o.stadtteil : '') + (punkt ? ' · 📍 auf der Karte' : ' · ohne Kartenpunkt')));
+      var b = el('div', 'b');
+      var ae = el('button', 'btn small', 'Ändern'); ae.type = 'button';
+      ae.addEventListener('click', function () { starteOrtAendern(o); });
+      var lo = el('button', 'btn small danger', 'Löschen'); lo.type = 'button';
+      lo.addEventListener('click', function () {
+        if (!window.confirm('„' + (o.name || 'Ort') + '" wirklich löschen?')) return;
+        aendern(function (a) { return a.filter(function (x) { return !ortGleich(x, o); }); }, 'Ort gelöscht: ' + o.name, ORTE)
+          .then(function () { meldung($('oMsg'), 'Gelöscht.', 'ok'); return ladeOrte(); })
+          .catch(function (e) { meldung($('oMsg'), e.user || e.message, 'err'); });
+      });
+      b.appendChild(ae); b.appendChild(lo); r.appendChild(b); box.appendChild(r);
+    });
+  }
+  function ladeOrte() {
+    return holen(ORTE).then(function (d) { zeigeOrteListe(d.arr); }).catch(function (e) {
+      $('oListe').textContent = ''; meldung($('oListe'), e.user || 'Orte konnten nicht geladen werden.', 'err');
+    });
+  }
+  function ortLeeren() {
+    ['oName', 'oTeil', 'oText', 'oKarte', 'oAdr', 'oLat', 'oLon'].forEach(function (i) { $(i).value = ''; });
+    $('oArt').value = 'Spielplatz'; $('oFund').textContent = ''; ortBearbeite = null;
+    $('oModeHint').textContent = 'Neuer Ort'; $('oCancel').hidden = true; $('oSave').textContent = 'Speichern';
+  }
+  function starteOrtAendern(o) {
+    ortBearbeite = o;
+    $('oName').value = o.name || ''; $('oArt').value = ARTEN.indexOf(o.art) >= 0 ? o.art : 'Sonstiges'; $('oTeil').value = o.stadtteil || '';
+    $('oText').value = o.text || ''; $('oKarte').value = o.karte || ''; $('oAdr').value = '';
+    $('oLat').value = typeof o.lat === 'number' ? o.lat : ''; $('oLon').value = typeof o.lon === 'number' ? o.lon : ''; $('oFund').textContent = '';
+    $('oModeHint').textContent = 'Ort ändern'; $('oCancel').hidden = false; $('oSave').textContent = 'Änderung speichern';
+    meldung($('oMsg'), ''); window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  $('oSuche').addEventListener('click', function () {
+    var q = $('oAdr').value.trim() || ($('oName').value.trim() + ' ' + $('oTeil').value.trim()).trim();
+    if (!q) { $('oFund').textContent = 'Bitte Adresse oder Namen eintragen.'; return; }
+    var btn = $('oSuche'); btn.disabled = true; $('oFund').textContent = 'Suche ...';
+    // Köln und Umgebung zuerst, damit "Rheinpark" nicht in Hamburg landet
+    var url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=de&viewbox=6.6,51.2,7.4,50.7&q=' + encodeURIComponent(q);
+    fetch(url).then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); }).then(function (j) {
+      if (!j.length) { $('oFund').textContent = 'Nichts gefunden. Probiere Straße und Ort, oder trage Breite und Länge von Hand ein.'; return; }
+      var f = j[0]; $('oLat').value = (+f.lat).toFixed(6); $('oLon').value = (+f.lon).toFixed(6);
+      $('oFund').textContent = 'Gefunden: ' + String(f.display_name || '').slice(0, 140) + ' (bitte kurz prüfen)';
+    }).catch(function () { $('oFund').textContent = 'Die Suche hat nicht geklappt. Bitte noch einmal oder Breite und Länge von Hand eintragen.'; })
+      .then(function () { btn.disabled = false; });
+  });
+  $('oForm').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var neu, alt = ortBearbeite;
+    try {
+      var name = $('oName').value.trim(), karte = $('oKarte').value.trim();
+      if (!name) throw new Error('Bitte einen Namen eintragen.');
+      if (karte && !kartenLinkOk(karte)) throw new Error('Das ist kein Karten-Link. Bitte den Teilen-Link aus Google Maps einfügen.');
+      var lat = zahlOrt($('oLat').value, 47, 55, 'Die Breite'), lon = zahlOrt($('oLon').value, 5, 15, 'Die Länge');
+      if ((lat === null) !== (lon === null)) throw new Error('Bitte Breite und Länge beide eintragen oder beide leer lassen.');
+      neu = {};
+      if (alt) for (var k0 in alt) neu[k0] = alt[k0];
+      ['stadtteil', 'text', 'karte', 'lat', 'lon'].forEach(function (k) { delete neu[k]; });
+      neu.name = name; neu.art = $('oArt').value;
+      if ($('oTeil').value.trim()) neu.stadtteil = $('oTeil').value.trim();
+      if ($('oText').value.trim()) neu.text = $('oText').value.trim();
+      if (karte) neu.karte = karte;
+      if (lat !== null) { neu.lat = lat; neu.lon = lon; }
+    } catch (e) { meldung($('oMsg'), e.message, 'err'); return; }
+    var btn = $('oSave'); btn.disabled = true; meldung($('oMsg'), '');
+    aendern(function (arr) {
+      if (alt) {
+        var i = -1; for (var k = 0; k < arr.length; k++) if (ortGleich(arr[k], alt)) { i = k; break; }
+        if (i >= 0) arr[i] = neu; else arr.push(neu);
+      } else arr.push(neu);
+      return arr;
+    }, (alt ? 'Ort geändert: ' : 'Ort: ') + neu.name, ORTE).then(function () {
+      meldung($('oMsg'), 'Gespeichert. In etwa einer Minute ist „' + neu.name + '" auf der Startseite.', 'ok');
+      ortLeeren(); return ladeOrte();
+    }).catch(function (e) {
+      meldung($('oMsg'), e.user || e.message, 'err');
+      if (e.status === 401) zeigeSetup();
+    }).then(function () { btn.disabled = false; });
+  });
+  $('oCancel').addEventListener('click', function () { ortLeeren(); meldung($('oMsg'), ''); });
+
+  function umschalten(w) {
+    var o = w === 'orte';
+    $('teilTermine').hidden = o; $('teilOrte').hidden = !o;
+    $('uTermine').setAttribute('aria-pressed', o ? 'false' : 'true'); $('uOrte').setAttribute('aria-pressed', o ? 'true' : 'false');
+    if (o && !ortAktuell.length) ladeOrte();
+  }
+  $('uTermine').addEventListener('click', function () { umschalten('termine'); });
+  $('uOrte').addEventListener('click', function () { umschalten('orte'); });
+
   // ---- Einrichtung ----
   function zeigeSetup() { $('setup').hidden = false; $('main').hidden = true; }
-  function zeigeMain() { $('setup').hidden = true; $('main').hidden = false; leeren(); ladeListe(); }
+  function zeigeMain() { $('setup').hidden = true; $('main').hidden = false; leeren(); ortLeeren(); umschalten('termine'); ladeListe(); }
   $('repoName').textContent = REPO;
 
   $('tokSave').addEventListener('click', function () {
@@ -381,10 +542,12 @@
     holen().then(function () { $('tok').value = ''; meldung($('setupMsg'), ''); zeigeMain(); })
       .catch(function (e) { setToken(''); meldung($('setupMsg'), e.user || e.message, 'err'); });
   });
-  $('tokWeg').addEventListener('click', function () {
+  function tokWegFn() {
     if (!window.confirm('Schlüssel von diesem Gerät löschen? Du musst ihn dann neu einfügen.')) return;
     setToken(''); zeigeSetup();
-  });
+  }
+  $('tokWeg').addEventListener('click', tokWegFn);
+  $('tokWeg2').addEventListener('click', tokWegFn);
 
   if (token()) zeigeMain(); else zeigeSetup();
 })();

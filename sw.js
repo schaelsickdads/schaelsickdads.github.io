@@ -1,9 +1,9 @@
 // Service Worker nur für die Startseite.
 // Er gilt technisch für die ganze Domain, fasst aber nur die Dateien unten an.
 // Alles andere (/walking-dads/, /hammer-deals/, /geschichte/ ...) geht ungefiltert ans Netz.
-const CACHE = 'dads-start-v4';
+const CACHE = 'dads-start-v5';
 const SHELL = ['/', '/index.html', '/logo.png', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
-const DATA = ['/tools.json', '/termine.json', '/config.json'];
+const DATA = ['/tools.json', '/termine.json', '/orte.json', '/config.json'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

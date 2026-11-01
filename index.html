@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Schälsick Dads</title>
 <meta name="description" content="Tools und Termine der Schälsick Dads aus Köln. Kölsch. Kinder. Chaos.">
+<meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#143446">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
@@ -137,22 +138,70 @@
   dialog#shareDlg .hinweis { margin: 10px 0 0; font-size: 13px; line-height: 1.4; color: rgba(245,235,215,.8); }
   .neu { margin-top: 0; }
   .neu h2:first-child { margin-top: 26px; }
-  .neu .nbox { border: 2px solid rgba(245,235,215,.5); border-radius: 14px; background: rgba(11,30,42,.35); padding: 16px; font-size: 15px; line-height: 1.5; color: rgba(245,235,215,.92); }
-  .neu .nbox p { margin: 0 0 12px; }
-  .neu .nbox h3 { margin: 18px 0 8px; font: 700 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(245,235,215,.8); }
-  .neu ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; }
-  .neu ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
   .neu a { color: var(--orange); }
-  .neu .btn { display: inline-block; margin: 8px 0 0; background: var(--orange); color: var(--ink); border: 3px solid var(--ink); text-decoration: none; }
+  .hero { margin-top: 22px; background: var(--cream); color: var(--navy); border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: 8px 9px 0 var(--orange); transform: rotate(-.5deg); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .hero .hl { background: var(--orange); color: var(--ink); font: 700 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; padding: 8px 16px; border-bottom: 3px solid var(--ink); }
+  .hero .hb { padding: 16px; }
+  .neu .hero h2.hh { margin: 0 0 8px; font: 900 28px/1.1 var(--serif); letter-spacing: 0; text-transform: none; color: var(--navy); }
+  .hero p { margin: 0 0 14px; font-size: 16px; line-height: 1.45; }
+  .hero .btn { display: block; text-align: center; margin: 0; padding: 14px; font-size: 18px; background: var(--orange); color: var(--ink); border: 3px solid var(--ink); box-shadow: 4px 5px 0 var(--ink); text-decoration: none; }
+  .hero .btn:active { transform: translate(3px, 4px); box-shadow: 1px 1px 0 var(--ink); }
+  .hero #neuJoin span { font-size: 15px; font-weight: 600; }
+  .was { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .was > div { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 14px 6px; border: 2px solid rgba(245,235,215,.5); border-radius: 14px; background: rgba(11,30,42,.35); font-size: 13px; line-height: 1.3; color: rgba(245,235,215,.85); }
+  .was .wi { font-size: 30px; line-height: 1; margin-bottom: 4px; }
+  .was b { font: 900 17px/1.15 var(--serif); color: var(--cream); }
+  .schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .schritte li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px; border: 2px solid rgba(245,235,215,.5); border-radius: 14px; background: rgba(11,30,42,.35); font-size: 15px; line-height: 1.45; }
+  .schritte .nr { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--orange); color: var(--ink); border: 3px solid var(--ink); font: 900 22px var(--serif); box-shadow: 2px 3px 0 var(--ink); }
+  .regelbox { border: 3px solid var(--ink); border-radius: 16px; background: var(--cream); color: var(--navy); padding: 14px 16px; box-shadow: 5px 6px 0 var(--orange); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .regelbox ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .regelbox li { position: relative; padding-left: 30px; font-size: 15px; line-height: 1.4; }
+  .regelbox li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; display: grid; place-items: center; font: 900 14px system-ui; background: var(--orange); color: var(--ink); border: 2px solid var(--ink); border-radius: 50%; }
+  .insta { margin: 22px 0 0; text-align: center; }
+  .insta a { display: inline-block; padding: 11px 18px; border: 2px solid var(--cream); border-radius: 999px; color: var(--cream); text-decoration: none; font: 700 16px system-ui, sans-serif; }
   .view[hidden] { display: none; }
   .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--ink); border-top: 3px solid var(--cream);
     padding: 8px max(12px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
-  .tabbar .in { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .tabbar .in { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
   .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px; border-radius: 14px; border: 2px solid transparent;
     color: var(--cream); text-decoration: none; font: 700 12px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; letter-spacing: .02em; }
-  .tab .ti { font-size: 24px; line-height: 1; }
+  .tab .ti { font-size: 22px; line-height: 1; }
   .tab[aria-current="page"] { background: var(--orange); color: var(--ink); border-color: var(--cream); }
   .tab:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .chip { font: 700 14px system-ui, sans-serif; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--cream); background: transparent; color: var(--cream); cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--orange); color: var(--ink); border-color: var(--ink); }
+  .orte { display: grid; gap: 10px; }
+  .ort { --c: var(--orange); background: var(--cream); color: var(--navy); border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: 4px 5px 0 var(--c); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .ort summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; min-height: 56px; }
+  .ort summary::-webkit-details-marker { display: none; }
+  .ort summary:focus-visible { outline: 3px solid var(--orange); outline-offset: -3px; }
+  .ort .ic { flex: none; width: 40px; height: 40px; display: grid; place-items: center; font-size: 22px; background: var(--c); border: 2px solid var(--ink); border-radius: 12px; }
+  .ort .wer { flex: 1; min-width: 0; }
+  .ort .name { margin: 0; font: 900 18px/1.2 var(--serif); overflow-wrap: break-word; }
+  .ort .sub { margin-top: 2px; font: 600 13px system-ui, sans-serif; opacity: .75; }
+  .ort .pfeil { flex: none; font-size: 14px; transition: transform .15s; }
+  .ort[open] .pfeil { transform: rotate(180deg); }
+  .ort[open] summary { border-bottom: 2px solid var(--ink); background: color-mix(in srgb, var(--c) 28%, var(--cream)); }
+  .ort .rumpf { padding: 12px 14px 14px; }
+  .ort .hint { display: inline-block; font: 700 12px system-ui, sans-serif; background: var(--ink); color: var(--cream); border-radius: 999px; padding: 4px 10px; margin-bottom: 8px; }
+  .ort .note { font: 400 15px/1.45 system-ui, sans-serif; }
+  .ort .btn { margin-top: 12px; display: inline-block; border: 2px solid var(--ink); background: var(--c); color: var(--ink); text-decoration: none; }
+  .ort.fokus { animation: fokus 1.4s ease-out; }
+  @keyframes fokus { 0%, 60% { box-shadow: 0 0 0 5px var(--c), 4px 5px 0 var(--c); } }
+  .ansicht { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 0 14px; border: 2px solid var(--cream); border-radius: 999px; overflow: hidden; }
+  .ansicht button { font: 700 15px system-ui, sans-serif; padding: 9px 8px; background: transparent; color: var(--cream); border: 0; cursor: pointer; }
+  .ansicht button[aria-pressed="true"] { background: var(--cream); color: var(--ink); }
+  #ortMap { height: min(62vh, 520px); min-height: 320px; border: 3px solid var(--cream); border-radius: 16px; overflow: hidden; background: #cfd8dc; }
+  .kartenhinweis { margin: 8px 0 0; font-size: 13px; opacity: .8; }
+  .leaflet-container { font-family: system-ui, sans-serif; }
+  .pin { display: grid; place-items: center; width: 36px; height: 36px; font-size: 19px; background: var(--c); border: 3px solid var(--ink); border-radius: 50%; box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
+  .popup b { display: block; font: 900 16px/1.2 var(--serif); }
+  .popup span { display: block; font-size: 13px; opacity: .75; margin: 2px 0 8px; }
+  .popup button { font: 700 14px system-ui, sans-serif; padding: 6px 12px; border-radius: 999px; border: 2px solid var(--ink); background: var(--orange); color: var(--ink); cursor: pointer; }
+  .vorschlag select { width: 100%; min-width: 0; font: 17px system-ui, sans-serif; color: var(--ink); background: var(--cream); border: 2px solid var(--ink); border-radius: 12px; padding: 11px 12px; }
+  .vorschlag textarea { width: 100%; min-width: 0; font: 17px system-ui, sans-serif; color: var(--ink); background: var(--cream); border: 2px solid var(--ink); border-radius: 12px; padding: 11px 12px; resize: vertical; }
   .vorschlag { margin-top: 22px; }
   .vorschlag details { border: 2px solid rgba(245,235,215,.5); border-radius: 14px; background: rgba(11,30,42,.35); padding: 4px 16px; }
   .vorschlag summary { cursor: pointer; font: 900 18px/1.3 var(--serif); padding: 12px 0; }
@@ -192,6 +241,10 @@
   footer {
     margin-top: 40px; text-align: center; font: 12px var(--mono); color: rgba(245,235,215,.6);
   }
+  footer .fl { color: inherit; opacity: .8; font-size: 13px; }
+  .kfrage { padding: 18px; border: 3px solid var(--cream); border-radius: 16px; background: rgba(11,30,42,.35); }
+  .kfrage p { margin: 0 0 12px; font-size: 15px; }
+  .kfrage a { color: var(--orange); }
   footer .waves { height: 10px; margin: 0 auto 14px; max-width: 220px; border-radius: 6px;
     background: repeating-linear-gradient(135deg, var(--orange) 0 10px, var(--ink) 10px 20px); }
   @media (prefers-reduced-motion: reduce) { .tile { transition: none; } }
@@ -233,6 +286,44 @@
   </section>
   </section>
 
+  <section class="view" id="v-orte" hidden>
+  <h2>Orte für Papas &amp; Kinder</h2>
+  <div class="ansicht" id="ortAnsicht" role="group" aria-label="Ansicht" hidden>
+    <button type="button" id="ansListe" aria-pressed="true">☰ Liste</button>
+    <button type="button" id="ansKarte" aria-pressed="false">🗺️ Karte</button>
+  </div>
+  <div class="chips" id="ortChips" role="group" aria-label="Filter"></div>
+  <div id="ortListeBox"><section class="orte" id="orteListe" aria-live="polite"><div class="leer">Lade Orte ...</div></section></div>
+  <div id="ortKartenBox" hidden>
+    <div class="kfrage" id="kFrage" hidden>
+      <p>Für die Karte lädt dein Gerät Kartenkacheln von OpenStreetMap. Dabei erfährt OpenStreetMap deine IP-Adresse. Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+      <button type="button" class="btn" id="kOk">🗺️ Karte anzeigen</button>
+    </div>
+    <div id="ortMap" role="application" aria-label="Karte mit Orten"></div><p class="kartenhinweis" id="kartenHinweis"></p></div>
+  <section class="vorschlag">
+    <details>
+      <summary>Ort fehlt? Schlag ihn vor</summary>
+      <form id="ovForm" autocomplete="off">
+        <p>Dein Tipp geht per WhatsApp an Fabian und kommt dann hier in die Liste.</p>
+        <label for="ovName">Wie heißt der Ort?</label>
+        <input id="ovName" required maxlength="80" placeholder="z. B. Spielplatz am Rhein">
+        <label for="ovArt">Was ist es?</label>
+        <select id="ovArt"><option>Spielplatz</option><option>Kindercafé</option><option>Brunch</option><option>Ausflug</option><option>Kneipe (ohne Kids)</option><option>Sonstiges</option></select>
+        <label for="ovTeil">Stadtteil <span class="opt">(optional)</span></label>
+        <input id="ovTeil" maxlength="40" placeholder="z. B. Porz">
+        <label for="ovText">Warum gut? <span class="opt">(optional)</span></label>
+        <textarea id="ovText" rows="3" maxlength="200" placeholder="z. B. Kaffee to go, Bobbycar-Strecke, schattig"></textarea>
+        <label for="ovKarte">Google-Maps-Link <span class="opt">(optional)</span></label>
+        <input id="ovKarte" type="url" maxlength="300" placeholder="https://maps.app.goo.gl/...">
+        <label for="ovVon">Dein Name <span class="opt">(optional)</span></label>
+        <input id="ovVon" maxlength="30" placeholder="Vorname" autocomplete="given-name">
+        <button class="btn voll" type="submit">An Fabian schicken</button>
+        <div class="danke" id="ovDanke" role="status" aria-live="polite"></div>
+      </form>
+    </details>
+  </section>
+  </section>
+
   <section class="view" id="v-tools" hidden>
   <h2>Werkzeuge</h2>
   <nav class="tiles" id="tiles" aria-label="Werkzeuge">
@@ -246,19 +337,33 @@
 
   <section class="view" id="v-neu" hidden>
   <section class="neu" id="neu">
-    <h2>Neu hier? So geht's</h2>
-      <div class="nbox">
-        <p>Schälsick Dads sind Väter von der Schäl Sick und aus dem Umland: Merheim, Dünnwald, Porz, Lohmar, Troisdorf. Wir gehen mit den Kindern spazieren, tauschen, was daheim rumliegt, und treffen uns auf ein Kölsch.</p>
-        <ol>
-          <li><b>In die WhatsApp-Community.</b> Dort werden Termine abgesprochen und Fragen geklärt.
-            <div id="neuJoin"></div></li>
-          <li><b>Termine ansehen.</b> Hier oben stehen sie. Mit „Bin dabei" sagst du in der Gruppe Bescheid.</li>
-          <li><b>Vorbeikommen.</b> Kinderwagen oder Kind an die Hand, mehr braucht es nicht.</li>
-        </ol>
-        <h3>Spielregeln</h3>
-        <ul id="regeln"></ul>
-        <p id="neuInsta" style="margin-top:14px"></p>
+    <div class="hero">
+      <div class="hl">Willkommen</div>
+      <div class="hb">
+        <h2 class="hh">Schön, dass du da bist.</h2>
+        <p>Wir sind Väter von der Schäl Sick und aus dem Umland: Merheim, Dünnwald, Porz, Lohmar, Troisdorf.</p>
+        <div id="neuJoin"></div>
       </div>
+    </div>
+
+    <h2>Was wir machen</h2>
+    <div class="was">
+      <div><span class="wi" aria-hidden="true">👟</span><b>Spazieren</b><span>mit Kind und Kinderwagen</span></div>
+      <div><span class="wi" aria-hidden="true">🔨</span><b>Tauschen</b><span>was daheim rumliegt</span></div>
+      <div><span class="wi" aria-hidden="true">🍺</span><b>Kölsch</b><span>und einfach quatschen</span></div>
+    </div>
+
+    <h2>So steigst du ein</h2>
+    <ol class="schritte">
+      <li><span class="nr">1</span><div><b>In die WhatsApp-Community.</b> Knopf oben. Dort werden Termine abgesprochen und Fragen geklärt.</div></li>
+      <li><span class="nr">2</span><div><b>Termine ansehen.</b> Im Tab „Termine“. Mit „Bin dabei“ sagst du in der Gruppe Bescheid.</div></li>
+      <li><span class="nr">3</span><div><b>Vorbeikommen.</b> Kinderwagen oder Kind an die Hand, mehr braucht es nicht.</div></li>
+    </ol>
+
+    <h2>Spielregeln</h2>
+    <div class="regelbox"><ul id="regeln"></ul></div>
+
+    <p id="neuInsta" class="insta"></p>
   </section>
 
   <section class="install" id="install" hidden>
@@ -320,13 +425,14 @@
 
   <footer>
     <div class="waves"></div>
-    Von Dads für Dads · us Kölle
+    Von Dads für Dads · us Kölle<br><a href="/datenschutz/" class="fl">Datenschutz</a>
   </footer>
 </div>
 
   <nav class="tabbar" aria-label="Hauptmenü">
     <div class="in">
       <a class="tab" id="tab-termine" href="#termine"><span class="ti" aria-hidden="true">📅</span><span>Termine</span></a>
+      <a class="tab" id="tab-orte" href="#orte"><span class="ti" aria-hidden="true">📍</span><span>Orte</span></a>
       <a class="tab" id="tab-tools" href="#tools"><span class="ti" aria-hidden="true">🛠️</span><span>Werkzeuge</span></a>
       <a class="tab" id="tab-neu" href="#neu"><span class="ti" aria-hidden="true">👋</span><span>Neu hier</span></a>
     </div>
@@ -822,10 +928,133 @@
     (Array.isArray(cfg.regeln) ? cfg.regeln : []).slice(0, 10).forEach(function (r) { if (typeof r === 'string' && r.trim()) ul.appendChild(el('li', null, r.trim().slice(0, 200))); });
     var ig = typeof cfg.instagram === 'string' && /^[A-Za-z0-9._]{1,30}$/.test(cfg.instagram) ? cfg.instagram : '';
     var p = document.getElementById('neuInsta'); p.textContent = '';
-    if (ig) { p.appendChild(document.createTextNode('Bilder und Reels: ')); var l = el('a', null, '@' + ig); l.href = 'https://instagram.com/' + ig; l.target = '_blank'; l.rel = 'noopener'; p.appendChild(l); }
+    if (ig) { var l = el('a', null, '📸 @' + ig + ' auf Instagram'); l.href = 'https://instagram.com/' + ig; l.target = '_blank'; l.rel = 'noopener'; p.appendChild(l); }
   }
+  // ---------- Orte ----------
+  var ARTEN = {
+    'Spielplatz': { ic: '🛝', c: '#8fbf7a' },
+    'Kindercafé': { ic: '☕', c: '#e9908a' },
+    'Brunch':     { ic: '🥐', c: '#efc94c' },
+    'Ausflug':    { ic: '🌳', c: '#58a9ab' },
+    'Kneipe':     { ic: '🍺', c: '#a99ad0', hint: 'ohne Kids' },
+    'Sonstiges':  { ic: '⭐', c: '#f2a33a' }
+  };
+  function artInfo(a) { return ARTEN.hasOwnProperty(a) ? ARTEN[a] : ARTEN['Sonstiges']; }
+  var ortAlle = [], ortFilter = '';
+  function zeigeOrte(liste) {
+    function zahl(v, lo, hi) { return typeof v === 'number' && isFinite(v) && v >= lo && v <= hi ? v : null; }
+    ortAlle = (Array.isArray(liste) ? liste : []).filter(function (o) { return o && typeof o.name === 'string' && o.name.trim(); })
+      .map(function (o) { return { name: o.name.trim().slice(0, 80), art: typeof o.art === 'string' && o.art.trim() ? o.art.trim().slice(0, 20) : 'Sonstiges',
+        stadtteil: typeof o.stadtteil === 'string' ? o.stadtteil.trim().slice(0, 40) : '', text: typeof o.text === 'string' ? o.text.trim().slice(0, 300) : '',
+        karte: typeof o.karte === 'string' ? o.karte : '', lat: zahl(o.lat, 47, 55), lon: zahl(o.lon, 5, 15) }; })
+      .sort(function (a, b) { return a.art.localeCompare(b.art, 'de') || a.name.localeCompare(b.name, 'de'); });
+    ortFilter = '';
+    renderOrte();
+  }
+  var ortModus = 'liste', ortKarte = null, ortLayer = null, ortLadeFehler = false;
+  function setOrtModus(m) {
+    ortModus = m;
+    document.getElementById('ortListeBox').hidden = m !== 'liste';
+    document.getElementById('ortKartenBox').hidden = m !== 'karte';
+    document.getElementById('ansListe').setAttribute('aria-pressed', m === 'liste' ? 'true' : 'false');
+    document.getElementById('ansKarte').setAttribute('aria-pressed', m === 'karte' ? 'true' : 'false');
+    if (m === 'karte') zeichneKarte();
+  }
+  function mitLeaflet(cb) {
+    if (window.L) return cb();
+    if (ortLadeFehler) return;
+    var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = '/vendor/leaflet/leaflet.css'; document.head.appendChild(css);
+    var sc = document.createElement('script'); sc.src = '/vendor/leaflet/leaflet.js';
+    sc.onload = cb;
+    sc.onerror = function () {
+      ortLadeFehler = true;
+      var m = document.getElementById('ortMap'); m.textContent = '';
+      m.appendChild(el('div', 'leer', 'Die Karte konnte nicht geladen werden. Die Liste geht trotzdem.'));
+    };
+    document.head.appendChild(sc);
+  }
+  var kartenOk = false;
+  try { kartenOk = localStorage.getItem('sd_karte_ok') === '1'; } catch (e) {}
+  function zeichneKarte() {
+    var fr = document.getElementById('kFrage'), mp = document.getElementById('ortMap');
+    fr.hidden = kartenOk; mp.hidden = !kartenOk; document.getElementById('kartenHinweis').hidden = !kartenOk;
+    if (!kartenOk) return;
+    mitLeaflet(function () {
+      if (!ortKarte) {
+        ortKarte = L.map('ortMap', { zoomControl: true, attributionControl: true }).setView([50.94, 6.98], 12);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende' }).addTo(ortKarte);
+        ortLayer = L.layerGroup().addTo(ortKarte);
+      }
+      ortKarte.invalidateSize();
+      ortLayer.clearLayers();
+      var pts = [], ohne = 0;
+      ortAlle.forEach(function (o) {
+        if (ortFilter && o.art !== ortFilter) return;
+        if (o.lat === null || o.lon === null) { ohne++; return; }
+        var ai = artInfo(o.art);
+        var pin = el('span', 'pin', ai.ic); pin.style.setProperty('--c', ai.c);
+        var icon = L.divIcon({ html: pin.outerHTML, className: '', iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -18] });
+        var pop = el('div', 'popup'); pop.appendChild(el('b', null, o.name));
+        pop.appendChild(el('span', null, o.art + (o.stadtteil ? ' · ' + o.stadtteil : '') + (ai.hint ? ' · ' + ai.hint : '')));
+        var b = el('button', null, 'Details'); b.type = 'button';
+        b.addEventListener('click', function () { setOrtModus('liste'); if (o.el) { o.el.open = true; o.el.scrollIntoView({ block: 'center' }); o.el.classList.remove('fokus'); void o.el.offsetWidth; o.el.classList.add('fokus'); } });
+        pop.appendChild(b);
+        L.marker([o.lat, o.lon], { icon: icon, title: o.name, keyboard: true }).bindPopup(pop).addTo(ortLayer);
+        pts.push([o.lat, o.lon]);
+      });
+      if (pts.length > 1) ortKarte.fitBounds(pts, { padding: [40, 40], maxZoom: 15 });
+      else if (pts.length === 1) ortKarte.setView(pts[0], 15);
+      var h = document.getElementById('kartenHinweis');
+      h.textContent = !pts.length && !ohne ? 'Noch nichts auf der Karte.' : (ohne ? ohne + (ohne === 1 ? ' Ort hat' : ' Orte haben') + ' noch keinen Kartenpunkt und steht nur in der Liste.' : '');
+    });
+  }
+  function renderOrte() {
+    var chips = document.getElementById('ortChips'), box = document.getElementById('orteListe');
+    chips.textContent = ''; box.textContent = '';
+    var arten = [];
+    ortAlle.forEach(function (o) { if (arten.indexOf(o.art) < 0) arten.push(o.art); });
+    document.getElementById('ortAnsicht').hidden = !ortAlle.length;
+    if (!ortAlle.length && ortModus === 'karte') setOrtModus('liste');
+    if (arten.length > 1) {
+      ['Alle'].concat(arten).forEach(function (a) {
+        var c = el('button', 'chip'); c.type = 'button';
+        if (a !== 'Alle') { c.style.setProperty('--c', artInfo(a).c); c.appendChild(el('span', 'ic', artInfo(a).ic)); }
+        c.appendChild(document.createTextNode(a));
+        c.setAttribute('aria-pressed', (a === 'Alle' ? ortFilter === '' : ortFilter === a) ? 'true' : 'false');
+        c.addEventListener('click', function () { ortFilter = a === 'Alle' ? '' : a; renderOrte(); if (ortModus === 'karte') zeichneKarte(); });
+        chips.appendChild(c);
+      });
+    }
+    var sicht = ortAlle.filter(function (o) { return !ortFilter || o.art === ortFilter; });
+    if (!sicht.length) { box.appendChild(el('div', 'leer', 'Noch keine Orte eingetragen. Kennst du einen guten Spielplatz oder ein Café für Papas und Kinder? Schlag ihn unten vor.')); return; }
+    sicht.forEach(function (o) {
+      var ai = artInfo(o.art);
+      var k = el('details', 'ort'); k.style.setProperty('--c', ai.c); o.el = k;
+      var sm = el('summary');
+      var ic = el('span', 'ic', ai.ic); ic.setAttribute('aria-hidden', 'true'); sm.appendChild(ic);
+      var w = el('span', 'wer'); w.appendChild(el('h3', 'name', o.name));
+      w.appendChild(el('div', 'sub', o.art + (o.stadtteil ? ' · ' + o.stadtteil : '')));
+      sm.appendChild(w);
+      var pf = el('span', 'pfeil', '▼'); pf.setAttribute('aria-hidden', 'true'); sm.appendChild(pf);
+      k.appendChild(sm);
+      var r = el('div', 'rumpf'); k.appendChild(r);
+      if (ai.hint) r.appendChild(el('div', 'hint', ai.hint));
+      if (o.text) r.appendChild(el('div', 'note', o.text));
+      var a = el('a', 'btn', '📍 Karte');
+      a.href = kartenLinkOk(o.karte) ? o.karte : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(o.name + ' ' + (o.stadtteil || 'Köln'));
+      a.target = '_blank'; a.rel = 'noopener';
+      r.appendChild(a);
+      box.appendChild(k);
+    });
+  }
+  document.getElementById('kOk').addEventListener('click', function () {
+    kartenOk = true; try { localStorage.setItem('sd_karte_ok', '1'); } catch (e) {}
+    zeichneKarte();
+  });
+  document.getElementById('ansListe').addEventListener('click', function () { setOrtModus('liste'); });
+  document.getElementById('ansKarte').addEventListener('click', function () { setOrtModus('karte'); });
   // ---------- Ansichten (Tab-Leiste unten) ----------
-  var ANSICHTEN = ['termine', 'tools', 'neu'];
+  var ANSICHTEN = ['termine', 'orte', 'tools', 'neu'];
   function zeigeAnsicht(name) {
     if (ANSICHTEN.indexOf(name) < 0) name = 'termine';
     ANSICHTEN.forEach(function (n) {
@@ -849,6 +1078,10 @@
 
   laden('/tools.json').then(zeigeTools).catch(function () {
     document.getElementById('tiles').appendChild(el('div', 'leer', 'Die Werkzeuge konnten nicht geladen werden. Bitte kurz neu laden.'));
+  });
+  laden('/orte.json').then(zeigeOrte).catch(function () {
+    var b = document.getElementById('orteListe'); b.textContent = '';
+    b.appendChild(el('div', 'leer', 'Die Orte konnten nicht geladen werden. Bitte kurz neu laden.'));
   });
   laden('/termine.json').then(zeigeTermine).catch(function () {
     var b = document.getElementById('termine'); b.textContent = '';
@@ -886,6 +1119,32 @@
       if (!w) window.location.href = url;
       document.getElementById('vsDanke').textContent = 'WhatsApp ist offen. Bitte dort noch auf Senden tippen.';
       document.getElementById('vsTitel').value = ''; document.getElementById('vsZeit').value = ''; document.getElementById('vsOrt').value = ''; datum.value = '';
+    });
+  })();
+
+  // ---------- Ort vorschlagen (WhatsApp an Fabian) ----------
+  (function () {
+    var form = document.getElementById('ovForm');
+    if (!form) return;
+    var von = document.getElementById('ovVon'); von.value = getName();
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('ovName').value.trim();
+      if (!name) return;
+      var art = document.getElementById('ovArt').value.replace(' (ohne Kids)', ''), teil = document.getElementById('ovTeil').value.trim();
+      var text = document.getElementById('ovText').value.trim(), karte = document.getElementById('ovKarte').value.trim();
+      var v = von.value.trim().slice(0, 30);
+      if (v) { setName(v); renderNameInfo(); }
+      var z = ['📍 Ortsvorschlag für die Startseite', '', name + ' (' + art + ')'];
+      if (teil) z.push('Stadtteil: ' + teil);
+      if (text) z.push(text);
+      if (karte && kartenLinkOk(karte)) z.push(karte);
+      z.push('', 'Fabian, bitte eintragen 🙏' + (v ? ' (Tipp von ' + v + ')' : ''));
+      var url = 'https://wa.me/' + FABIAN_WA.replace(/\D/g, '') + '?text=' + encodeURIComponent(z.join('\n'));
+      var w = window.open(url, '_blank');
+      if (!w) window.location.href = url;
+      document.getElementById('ovDanke').textContent = 'WhatsApp ist offen. Bitte dort noch auf Senden tippen.';
+      ['ovName', 'ovTeil', 'ovText', 'ovKarte'].forEach(function (i) { document.getElementById(i).value = ''; });
     });
   })();
 
